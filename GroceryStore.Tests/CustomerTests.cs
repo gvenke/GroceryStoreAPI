@@ -32,7 +32,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestChanges()
+        public override void Changes()
         {
             const string initialName = "initial name";
             const string changedName = "changed name";
@@ -54,7 +54,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestSaveNew()
+        public override void SaveNew()
         {
             SetupDataBroker();
 
@@ -68,7 +68,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestSaveExisting()
+        public override void SaveExisting()
         {
             SetupDataBroker();
             _poco = new Customer { Id = 1, Name = "joe blow" };

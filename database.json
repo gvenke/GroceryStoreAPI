@@ -1,5 +1,6 @@
 {
-  "customers": [{
+  "customers": [
+    {
       "id": 1,
       "name": "Bob"
     },
@@ -10,25 +11,34 @@
     {
       "id": 3,
       "name": "Joe"
+    },
+    {
+      "id": 4,
+      "name": "plain jane"
     }
   ],
-  "orders": [{
-    "id": 1,
-    "customerId": 1,
-    "items": [{
-        "productId": 1,
-        "quantity": 2
-      },
-      {
-        "productId": 2,
-        "quantity": 3
-      }
-    ]
-  }],
-  "products": [{
+  "orders": [
+    {
+      "id": 1,
+      "orderDate": "2019-11-14T15:09:15.6862288-06:00",
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 1
+        },
+        {
+          "productId": 2,
+          "quantity": 2
+        }
+      ],
+      "customerId": 4
+    }
+  ],
+  "products": [
+    {
       "id": 1,
       "description": "apple",
-      "price": 0.50
+      "price": 0.5
     },
     {
       "id": 2,

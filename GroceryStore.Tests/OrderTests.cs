@@ -35,7 +35,7 @@ namespace GroceryStore.Tests
 
 
         [TestMethod]
-        public override void TestChanges()
+        public override void Changes()
         {
             _poco = new Order();
             var history = _poco.CheckPointHistory;
@@ -77,7 +77,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestSaveNew()
+        public override void SaveNew()
         {
             SetupDataBroker();
             _poco = new Order { CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } } };
@@ -89,7 +89,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestSaveExisting()
+        public override void SaveExisting()
         {
             SetupDataBroker();
             _poco = new Order { Id = 1, CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } } };

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using GroceryStore.DataBroker;
 using System.Linq;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("GroceryStore.Tests")]
 
 namespace GroceryStore.Entity
 {
@@ -34,6 +31,9 @@ namespace GroceryStore.Entity
 
             _checkPoint = CreateNewCheckPoint();
 
+            // we don't the current object's checkpoints to be copied to the checkpoint
+            _checkPoint.ClearCheckPoints();
+
             bool added = false;
 
             // looping here in event of a dupe key - which could happen during multiple calls in quick succession
@@ -48,16 +48,13 @@ namespace GroceryStore.Entity
                 {
                     // continue
                 }
-            }
-    
+            } 
 
-            
-
+            // remove excess checkpoints
             if (_checkPoints.Count > MaxCheckPoints)
             {
                 _checkPoints.Remove(_checkPoints.Keys.First());
             }
-
         }
             
         public bool IsDirty()
@@ -78,7 +75,7 @@ namespace GroceryStore.Entity
         }
 
         /// <summary>
-        /// implementations should create deep copies of the current object
+        /// overrides should create deep copies of the current object
         /// </summary>
         /// <returns></returns>
         protected abstract EntityBase CreateNewCheckPoint();
@@ -89,12 +86,8 @@ namespace GroceryStore.Entity
 
         protected abstract void SaveExisting(IDataBroker dataBroker);
 
-        /// <summary>
-        /// limiting the access to prevent saving outside the GrocvceryStore class. We're using
-        /// the InternalsVisibleTo to allow an exemption for unit tests
-        /// </summary>
         /// <param name="dataBroker"></param>
-        internal void Save(IDataBroker dataBroker)
+        public void Save(IDataBroker dataBroker)
         {
             if (IsNew()) {
                 SaveNew(dataBroker);
@@ -103,6 +96,5 @@ namespace GroceryStore.Entity
                 SaveExisting(dataBroker);
             }
         }
-
     }
 }

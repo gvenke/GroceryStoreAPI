@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using GroceryStore.DataBroker;
 using GroceryStore.Entity;
+using GroceryStore.Utility;
 
 namespace GroceryStore
 {
-    public class GroceryStore
+    public class GroceryStoreManager
     {
         private IDataBroker _dataBroker;
 
-        public GroceryStore(IDataBroker dataBroker)
+        public GroceryStoreManager(IDataBroker dataBroker)
         {
             _dataBroker = dataBroker;
         }
@@ -18,6 +19,27 @@ namespace GroceryStore
         {
            return _dataBroker.GetCustomers();
 
+        }
+
+        public Order CreateOrder()
+        {
+            var order = Factory.CreateOrder();
+            order.CreateCheckPoint();
+            return order;
+        }
+
+        public Product CreateProduct()
+        { 
+            var product = Factory.CreateProduct();
+            product.CreateCheckPoint();
+            return product;
+        }
+
+        public Customer CreateCustomer()
+        {
+            var customer = Factory.CreateCustomer();
+            customer.CreateCheckPoint();
+            return customer;
         }
 
         public IEnumerable<Order> GetOrders()

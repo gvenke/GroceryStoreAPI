@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryStore.Tests", "Groce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryStore", "GroceryStore\GroceryStore.csproj", "{B114C33D-5B03-4002-B093-476443D51882}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandBox", "SandBox\SandBox.csproj", "{DFE133CA-AA68-4704-8EF9-6DBB4C012041}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B114C33D-5B03-4002-B093-476443D51882}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B114C33D-5B03-4002-B093-476443D51882}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B114C33D-5B03-4002-B093-476443D51882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFE133CA-AA68-4704-8EF9-6DBB4C012041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE133CA-AA68-4704-8EF9-6DBB4C012041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE133CA-AA68-4704-8EF9-6DBB4C012041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE133CA-AA68-4704-8EF9-6DBB4C012041}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

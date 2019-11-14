@@ -33,7 +33,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestChanges()
+        public override void Changes()
         {
             const string initialDesc = "initial desc";
             const string changedDesc = "changed desc";
@@ -71,7 +71,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestSaveNew()
+        public override void SaveNew()
         {
             SetupDataBroker();
 
@@ -86,7 +86,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public override void TestSaveExisting()
+        public override void SaveExisting()
         {
             SetupDataBroker();
             _poco = new Product { Id = 1, Description = "test desc" };

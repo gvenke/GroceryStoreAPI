@@ -66,9 +66,9 @@
   <ItemGroup>
     <Compile Include="EntityTestBase.cs" />
     <Compile Include="EntityTestDataBase.cs" />
-    <Compile Include="GroceryStoreIntegrationTests.cs" />
-    <Compile Include="GroceryStoreTestBase.cs" />
-    <Compile Include="GroceryStoreUnitTests.cs" />
+    <Compile Include="GroceryStoreManagerIntegrationTests.cs" />
+    <Compile Include="GroceryStoreManagerTestBase.cs" />
+    <Compile Include="GroceryStoreManagerUnitTests.cs" />
     <Compile Include="JsonDataBrokerTests.cs" />
     <Compile Include="ProductTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

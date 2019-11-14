@@ -17,7 +17,7 @@ namespace GroceryStore.Tests
 
 
         [TestMethod]
-        public void TestCheckPointSingle()
+        public void CheckPointSingle()
         {
             _poco = new T();
             _poco.CreateCheckPoint();
@@ -28,7 +28,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public void TestCheckPointMultiple()
+        public void CheckPointMultiple()
         {
             _poco = new T();
             _poco.CreateCheckPoint();
@@ -53,11 +53,10 @@ namespace GroceryStore.Tests
                 prevCheckPoint = curCheckPoint;
             }
             Assert.IsFalse(invalid, "all checkpoints should be separate references");
-
         }
 
         [TestMethod]
-        public void TestCheckPointHistoryLimit()
+        public void CheckPointHistoryLimit()
         {  
             _poco = new T();
             for (int i = 1; i <= 8; i++)
@@ -80,7 +79,7 @@ namespace GroceryStore.Tests
         }
 
         [TestMethod]
-        public void TestCheckPointDirty()
+        public void CheckPointDirty()
         {
             _poco = new T();           
             _poco.CreateCheckPoint();
@@ -89,6 +88,20 @@ namespace GroceryStore.Tests
             Assert.IsTrue(_poco.IsDirty());
             _poco.CreateCheckPoint();
             Assert.IsFalse(_poco.IsDirty());
+        }
+
+        [TestMethod]
+        public void CheckPointsNotCloned()
+        {
+            _poco = new T();
+            _poco.CreateCheckPoint();
+            _poco.CreateCheckPoint();
+            _poco.CreateCheckPoint();
+            foreach(var checkPoint in _poco.CheckPointHistory.Values)
+            {
+                Assert.AreEqual(0, checkPoint.CheckPointHistory.Count);
+                Assert.IsNull(checkPoint.CurrentCheckPoint);
+            }
         }
 
         [TestMethod]
@@ -118,11 +131,11 @@ namespace GroceryStore.Tests
 
         protected abstract T CreateExisting();
 
-        public abstract void TestChanges();
+        public abstract void Changes();
 
-        public abstract void TestSaveNew();
+        public abstract void SaveNew();
 
-        public abstract void TestSaveExisting();
+        public abstract void SaveExisting();
 
         protected abstract void EditPoco();
 

@@ -8,7 +8,7 @@ namespace GroceryStore.Tests
     /// Summary description for GroceryStoreUnitTests
     /// </summary>
     [TestClass]
-    public class GroceryStoreUnitTests : GroceryStoreTestBase
+    public class GroceryStoreManagerUnitTests : GroceryStoreManagerTestBase
     {
         protected override IDataBroker CreateDataBroker()
         {

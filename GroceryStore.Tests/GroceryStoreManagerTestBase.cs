@@ -5,9 +5,34 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace GroceryStore.Tests
 {
     [TestClass]
-    public abstract class GroceryStoreTestBase : EntityTestDataBase
+    public abstract class GroceryStoreManagerTestBase : EntityTestDataBase
     {
-        private GroceryStore _groceryStore;
+        private GroceryStoreManager _groceryStore;
+
+        [TestMethod]
+        public void CreateCustomer()
+        {
+            SetupGroceryStore();
+            var customer = _groceryStore.CreateCustomer();
+            Assert.AreEqual(1, customer.CheckPointHistory.Count);
+        }
+
+        [TestMethod]
+        public void CreateProduct()
+        {
+            SetupGroceryStore();
+            var product = _groceryStore.CreateProduct();
+            Assert.AreEqual(1, product.CheckPointHistory.Count);
+        }
+
+        [TestMethod]
+        public void CreateOrder()
+        {
+            SetupGroceryStore();
+            var order= _groceryStore.CreateOrder();
+            Assert.AreEqual(1, order.CheckPointHistory.Count);
+        }
+
 
         [TestMethod]
         public void GetCustomers()
@@ -170,13 +195,12 @@ namespace GroceryStore.Tests
             var orderData = _groceryStore.GetOrders(DateTime.Parse("9/1/2019"));
 
             Assert.AreEqual(0, orderData.Count());
-
         }
 
         private void SetupGroceryStore()
         {
             SetupDataBroker();
-            _groceryStore = new GroceryStore(_dataBroker);
+            _groceryStore = new GroceryStoreManager(_dataBroker);
         }
     }
 }
