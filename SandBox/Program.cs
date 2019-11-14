@@ -8,7 +8,11 @@ namespace SandBox
 {
     class Program
     {
-
+        /// <summary>
+        /// NOTE: before this can work, the app config key "DbFilePath" must be updated to reflect the location of "database.json"
+        /// on the local machine
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             
