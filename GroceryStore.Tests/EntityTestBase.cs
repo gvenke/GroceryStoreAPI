@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using GroceryStore.Pocos;
-using GroceryStore.DataBroker;
+using GroceryStore.Entity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System.Linq;
 
 namespace GroceryStore.Tests

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using GroceryStore.DataBroker;
 
 
-namespace GroceryStore.Pocos
+namespace GroceryStore.Entity
 {
     [DataContract]
     public class OrderItem

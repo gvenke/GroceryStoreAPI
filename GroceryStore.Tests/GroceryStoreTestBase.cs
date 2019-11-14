@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using GroceryStore.DataBroker;
-using GroceryStore.Pocos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GroceryStore.Tests

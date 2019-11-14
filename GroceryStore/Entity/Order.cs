@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.Serialization;
 using GroceryStore.DataBroker;
 using System.Linq;
 
-namespace GroceryStore.Pocos
+namespace GroceryStore.Entity
 {
     [DataContract]
     public class Order : EntityBase

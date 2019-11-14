@@ -1,8 +1,6 @@
 ﻿using System;
-using Moq;
 using System.Linq;
-using GroceryStore.Pocos;
-using System.Collections.Generic;
+using GroceryStore.Entity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GroceryStore.Tests

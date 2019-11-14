@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GroceryStore.Pocos;
+﻿using GroceryStore.Entity;
 
-namespace GroceryStore
+namespace GroceryStore.Utility
 {
-    public static class PocoFactory
+    public static class Factory
     {
         public static Product CreateProduct()
         {
@@ -20,7 +17,6 @@ namespace GroceryStore
         public static Order CreateOrder()
         {
             return new Order();
-        }
-       
+        }  
     }
 }

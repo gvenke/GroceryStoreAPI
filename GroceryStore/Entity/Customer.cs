@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
-using GroceryStore.Interfaces;
+﻿using System.Runtime.Serialization;
 using GroceryStore.DataBroker;
 
 
-namespace GroceryStore.Pocos
+namespace GroceryStore.Entity
 {
     [DataContract]
     public class Customer : EntityBase

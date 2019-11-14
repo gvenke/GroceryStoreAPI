@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace GroceryStore.Utilities
+namespace GroceryStore.Utility
 {
     public class DuplicateEntityKeyException : Exception
     {

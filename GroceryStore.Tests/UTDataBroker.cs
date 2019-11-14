@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GroceryStore.DataBroker;
-using GroceryStore.Pocos;
-using System.Data.Linq;
-using GroceryStore.Utilities;
+using GroceryStore.Entity;
+using GroceryStore.Utility;
 
 namespace GroceryStore.Tests
 {    

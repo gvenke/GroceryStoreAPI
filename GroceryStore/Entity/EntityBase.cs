@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("GroceryStore.Tests")]
 
-namespace GroceryStore.Pocos
+namespace GroceryStore.Entity
 {
     public abstract class EntityBase
     {

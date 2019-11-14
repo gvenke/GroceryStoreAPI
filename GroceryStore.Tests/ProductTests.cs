@@ -1,5 +1,5 @@
 ﻿using System;
-using GroceryStore.Pocos;
+using GroceryStore.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

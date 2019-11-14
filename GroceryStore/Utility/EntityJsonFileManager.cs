@@ -1,4 +1,4 @@
-﻿using GroceryStore.Pocos;
+﻿using GroceryStore.Entity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -9,13 +9,21 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace GroceryStore.Utilities
+namespace GroceryStore.Utility
 {
     public class EntityJsonFileManager
     {
         private string _filePath;
 
         JsonSerializer _serializer;
+
+
+        private JObject GetData(string section)
+        {
+            var json = File.ReadAllText(_filePath);
+            return JObject.Parse(json);
+ 
+        }
 
         public EntityJsonFileManager(string filePath)
         {
@@ -37,8 +45,8 @@ namespace GroceryStore.Utilities
 
         public void Insert(string section, IEnumerable<EntityBase> entities)
         {
-            var json = File.ReadAllText(_filePath);
-            var jsonObj = JObject.Parse(json);
+
+            var jsonObj = GetData(section);
             var jEntities = jsonObj.GetValue(section) as JArray;
             foreach(var curItem in entities)
             {
@@ -51,8 +59,7 @@ namespace GroceryStore.Utilities
 
         public bool Update(string section, EntityBase entity, KeyValuePair<string, string> targetKey)
         {
-            var json = File.ReadAllText(_filePath);
-            var jsonObj = JObject.Parse(json);
+            var jsonObj = GetData(section);
             var jEntities = (JArray)jsonObj[section];
             var obj = jEntities.FirstOrDefault(o => o[targetKey.Key].Value<string>() == targetKey.Value);
             if (obj == null)
@@ -69,8 +76,7 @@ namespace GroceryStore.Utilities
 
         public IEnumerable<T> RetrieveMultiple<T>(string section, Expression<Func<T, bool>> expr = null) where T : EntityBase
         {
-            var json = File.ReadAllText(_filePath);
-            var jsonObj = JObject.Parse(json);
+            var jsonObj = GetData(section);
             var jEntities = (JArray)jsonObj[section];
             var entities  = jEntities.ToObject<IEnumerable<T>>();
             if (expr != null)
@@ -82,8 +88,7 @@ namespace GroceryStore.Utilities
 
         public T Retrieve<T>(string section, Expression<Func<T, bool>> expr = null) where T : EntityBase
         {
-            var json = File.ReadAllText(_filePath);
-            var jsonObj = JObject.Parse(json);
+            var jsonObj = GetData(section);
             var jEntities = (JArray)jsonObj[section];
             var entities = jEntities.ToObject<IEnumerable<T>>();
             return entities.FirstOrDefault(expr.Compile());
@@ -91,8 +96,7 @@ namespace GroceryStore.Utilities
 
         public void Insert(string section, EntityBase entity, KeyValuePair<string, string> dupeKey)
         {
-            var json = File.ReadAllText(_filePath);
-            var jsonObj = JObject.Parse(json);
+            var jsonObj = GetData(section);
             var jEntities = jsonObj.GetValue(section) as JArray;
             var obj = jEntities.FirstOrDefault(o => o[dupeKey.Key].Value<string>() == dupeKey.Value);
             if (obj != null)
@@ -108,8 +112,7 @@ namespace GroceryStore.Utilities
 
         public int GetMaxAttrValue(string section, string attribute)
         {
-            var json = File.ReadAllText(_filePath);
-            var jsonObj = JObject.Parse(json);
+            var jsonObj = GetData(section);
             var jEntities = jsonObj.GetValue(section) as JArray;
             return jEntities.Count() == 0 ? 0 : jEntities.Max(o => o[attribute].Value<int>());
         }

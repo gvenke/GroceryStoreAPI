@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using GroceryStore.Pocos;
-using GroceryStore.Utilities;
+using GroceryStore.Entity;
+using GroceryStore.Utility;
 
 namespace GroceryStore.DataBroker
 {

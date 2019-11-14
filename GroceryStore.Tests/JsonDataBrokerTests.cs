@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GroceryStore.DataBroker;
 using System.IO;
-using System.Runtime.Serialization.Json;
-using GroceryStore.Pocos;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using GroceryStore.Utilities;
+using GroceryStore.Utility;
 
 namespace GroceryStore.Tests
 {

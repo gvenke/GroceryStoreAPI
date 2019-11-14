@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GroceryStore.DataBroker;
-using GroceryStore.Utilities;
+using GroceryStore.Utility;
 using System.IO;
 
 namespace GroceryStore.Tests
