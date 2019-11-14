@@ -6,12 +6,13 @@ using System.Linq;
 namespace GroceryStore.Tests
 {
     /// <summary>
-    /// Summary description for PocoTestBase
+    /// base class for all entity subclass UTs. When you create a new entity sub class
+    /// you should also create a UT test that derives from this.
     /// </summary>
     [TestClass]
     public abstract class EntityTestBase<T> where T : EntityBase, new()
     {
-        protected T _poco;
+        protected T _entity;
         protected UTDataBroker _dataBroker;
 
 
@@ -19,22 +20,22 @@ namespace GroceryStore.Tests
         [TestMethod]
         public void CheckPointSingle()
         {
-            _poco = new T();
-            _poco.CreateCheckPoint();
-            Assert.IsNotNull(_poco.CurrentCheckPoint, "checkpoint should not be null");
-            Assert.IsNotNull(_poco.CheckPointHistory, "checkpoint history should not be null");
-            Assert.AreEqual(1, _poco.CheckPointHistory.Count);
-            Assert.AreNotEqual(_poco.CheckPointHistory.Last(), _poco.CurrentCheckPoint, "current checkpoint should not match the previous one");         
+            _entity = new T();
+            _entity.CreateCheckPoint();
+            Assert.IsNotNull(_entity.CurrentCheckPoint, "checkpoint should not be null");
+            Assert.IsNotNull(_entity.CheckPointHistory, "checkpoint history should not be null");
+            Assert.AreEqual(1, _entity.CheckPointHistory.Count);
+            Assert.AreNotEqual(_entity.CheckPointHistory.Last(), _entity.CurrentCheckPoint, "current checkpoint should not match the previous one");         
         }
 
         [TestMethod]
         public void CheckPointMultiple()
         {
-            _poco = new T();
-            _poco.CreateCheckPoint();
-            var history = _poco.CheckPointHistory;
+            _entity = new T();
+            _entity.CreateCheckPoint();
+            var history = _entity.CheckPointHistory;
             //System.Threading.Thread.Sleep(1000);
-           _poco.CreateCheckPoint();
+           _entity.CreateCheckPoint();
 
 
             Assert.AreEqual(2, history.Count);
@@ -58,46 +59,46 @@ namespace GroceryStore.Tests
         [TestMethod]
         public void CheckPointHistoryLimit()
         {  
-            _poco = new T();
+            _entity = new T();
             for (int i = 1; i <= 8; i++)
             {
                 EditPoco();
-                _poco.CreateCheckPoint();
+                _entity.CreateCheckPoint();
             }
 
-            Assert.AreEqual(EntityBase.MaxCheckPoints, _poco.CheckPointHistory.Count);
+            Assert.AreEqual(EntityBase.MaxCheckPoints, _entity.CheckPointHistory.Count);
         }
 
         public void ClearCheckPoints()
         {
-            _poco = new T();
-            _poco.CreateCheckPoint();
-            _poco.ClearCheckPoints();
+            _entity = new T();
+            _entity.CreateCheckPoint();
+            _entity.ClearCheckPoints();
 
-            Assert.IsNull(_poco.CurrentCheckPoint);
-            Assert.IsTrue(_poco.CheckPointHistory.Count == 0);
+            Assert.IsNull(_entity.CurrentCheckPoint);
+            Assert.IsTrue(_entity.CheckPointHistory.Count == 0);
         }
 
         [TestMethod]
         public void CheckPointDirty()
         {
-            _poco = new T();           
-            _poco.CreateCheckPoint();
-            Assert.IsFalse(_poco.IsDirty());
+            _entity = new T();           
+            _entity.CreateCheckPoint();
+            Assert.IsFalse(_entity.IsDirty());
             EditPoco();
-            Assert.IsTrue(_poco.IsDirty());
-            _poco.CreateCheckPoint();
-            Assert.IsFalse(_poco.IsDirty());
+            Assert.IsTrue(_entity.IsDirty());
+            _entity.CreateCheckPoint();
+            Assert.IsFalse(_entity.IsDirty());
         }
 
         [TestMethod]
         public void CheckPointsNotCloned()
         {
-            _poco = new T();
-            _poco.CreateCheckPoint();
-            _poco.CreateCheckPoint();
-            _poco.CreateCheckPoint();
-            foreach(var checkPoint in _poco.CheckPointHistory.Values)
+            _entity = new T();
+            _entity.CreateCheckPoint();
+            _entity.CreateCheckPoint();
+            _entity.CreateCheckPoint();
+            foreach(var checkPoint in _entity.CheckPointHistory.Values)
             {
                 Assert.AreEqual(0, checkPoint.CheckPointHistory.Count);
                 Assert.IsNull(checkPoint.CurrentCheckPoint);
@@ -107,22 +108,22 @@ namespace GroceryStore.Tests
         [TestMethod]
         public void IsDirtyWithNoCheckPoint()
         {
-            _poco = new T();
-            Assert.ThrowsException<InvalidOperationException>(() => _poco.IsDirty());
+            _entity = new T();
+            Assert.ThrowsException<InvalidOperationException>(() => _entity.IsDirty());
         }
 
         [TestMethod]
         public void IsNew()
         {
-            _poco = CreateNew();
-            Assert.IsTrue(_poco.IsNew());
+            _entity = CreateNew();
+            Assert.IsTrue(_entity.IsNew());
         }
 
         [TestMethod]
         public void IsNotNew()
         {
-            _poco = CreateExisting();
-            Assert.IsFalse(_poco.IsNew());
+            _entity = CreateExisting();
+            Assert.IsFalse(_entity.IsNew());
         }
 
 

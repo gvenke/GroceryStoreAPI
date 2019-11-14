@@ -19,7 +19,7 @@ namespace GroceryStore.Tests
 
         protected override void EditPoco()
         {
-            _poco.Price= _rnd.NextDouble();
+            _entity.Price= _rnd.NextDouble();
         }
 
         protected override Product CreateNew()
@@ -40,25 +40,25 @@ namespace GroceryStore.Tests
             const double initialPrice = 10.25;
             const double changedPrice = 11.50;
 
-            _poco = new Product();
-            var history = _poco.CheckPointHistory;
+            _entity = new Product();
+            var history = _entity.CheckPointHistory;
 
-            _poco.Description = initialDesc;
-            _poco.Price = initialPrice;
-            _poco.CreateCheckPoint();
+            _entity.Description = initialDesc;
+            _entity.Price = initialPrice;
+            _entity.CreateCheckPoint();
 
-            Assert.IsTrue(_poco.Description == ((Product)_poco.CurrentCheckPoint).Description);
-            Assert.IsTrue(_poco.Price == ((Product)_poco.CurrentCheckPoint).Price);
+            Assert.IsTrue(_entity.Description == ((Product)_entity.CurrentCheckPoint).Description);
+            Assert.IsTrue(_entity.Price == ((Product)_entity.CurrentCheckPoint).Price);
 
 
-            _poco.Description = changedDesc;
-            _poco.Price = changedPrice;
-            Assert.IsTrue(_poco.Description != ((Product)_poco.CurrentCheckPoint).Description);
-            Assert.IsTrue(_poco.Price != ((Product)_poco.CurrentCheckPoint).Price);
+            _entity.Description = changedDesc;
+            _entity.Price = changedPrice;
+            Assert.IsTrue(_entity.Description != ((Product)_entity.CurrentCheckPoint).Description);
+            Assert.IsTrue(_entity.Price != ((Product)_entity.CurrentCheckPoint).Price);
 
-            _poco.CreateCheckPoint();
-            Assert.IsTrue(_poco.Description == ((Product)_poco.CurrentCheckPoint).Description);
-            Assert.IsTrue(_poco.Price == ((Product)_poco.CurrentCheckPoint).Price);
+            _entity.CreateCheckPoint();
+            Assert.IsTrue(_entity.Description == ((Product)_entity.CurrentCheckPoint).Description);
+            Assert.IsTrue(_entity.Price == ((Product)_entity.CurrentCheckPoint).Price);
 
             var checkPoint1 = (Product)history[history.First().Key];
             var checkPoint2 = (Product)history[history.Last().Key];
@@ -75,13 +75,13 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
 
-            _poco = new Product();
+            _entity = new Product();
   
-            _poco.Description = "test desc";
-            _poco.Price = 12.99;
-            _poco.Save(_dataBroker);
+            _entity.Description = "test desc";
+            _entity.Price = 12.99;
+            _entity.Save(_dataBroker);
 
-            Assert.IsTrue(_poco.Id != null);
+            Assert.IsTrue(_entity.Id != null);
             Assert.IsTrue(_dataBroker.ProductData.Count == 1);
         }
 
@@ -89,16 +89,16 @@ namespace GroceryStore.Tests
         public override void SaveExisting()
         {
             SetupDataBroker();
-            _poco = new Product { Id = 1, Description = "test desc" };
-            var productId = _poco.Id.GetValueOrDefault();
-            _poco.CreateCheckPoint();
-            var clone = (Product)_poco.CurrentCheckPoint;
+            _entity = new Product { Id = 1, Description = "test desc" };
+            var productId = _entity.Id.GetValueOrDefault();
+            _entity.CreateCheckPoint();
+            var clone = (Product)_entity.CurrentCheckPoint;
             _dataBroker.ProductData.Add(clone.Id.GetValueOrDefault(), clone);
 
-            _poco.Description = "changed desc";
+            _entity.Description = "changed desc";
 
-            _poco.Save(_dataBroker);
-            Assert.IsTrue(_poco.Id == productId);
+            _entity.Save(_dataBroker);
+            Assert.IsTrue(_entity.Id == productId);
             Assert.IsTrue(_dataBroker.ProductData.Count == 1);
         }
 

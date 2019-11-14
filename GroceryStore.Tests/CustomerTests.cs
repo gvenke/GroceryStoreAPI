@@ -18,7 +18,7 @@ namespace GroceryStore.Tests
 
         protected override void EditPoco()
         {
-            _poco.Name = Guid.NewGuid().ToString();
+            _entity.Name = Guid.NewGuid().ToString();
         }
 
         protected override Customer CreateNew()
@@ -36,15 +36,15 @@ namespace GroceryStore.Tests
         {
             const string initialName = "initial name";
             const string changedName = "changed name";
-            _poco = new Customer();
-            var history = _poco.CheckPointHistory;           
-            _poco.Name = initialName;
-            _poco.CreateCheckPoint();
-            Assert.IsTrue(_poco.Name == ((Customer)_poco.CurrentCheckPoint).Name);
-            _poco.Name = changedName;
-            Assert.IsTrue(_poco.Name != ((Customer)_poco.CurrentCheckPoint).Name);
-            _poco.CreateCheckPoint();
-            Assert.IsTrue(_poco.Name == ((Customer)_poco.CurrentCheckPoint).Name);
+            _entity = new Customer();
+            var history = _entity.CheckPointHistory;           
+            _entity.Name = initialName;
+            _entity.CreateCheckPoint();
+            Assert.IsTrue(_entity.Name == ((Customer)_entity.CurrentCheckPoint).Name);
+            _entity.Name = changedName;
+            Assert.IsTrue(_entity.Name != ((Customer)_entity.CurrentCheckPoint).Name);
+            _entity.CreateCheckPoint();
+            Assert.IsTrue(_entity.Name == ((Customer)_entity.CurrentCheckPoint).Name);
 
             var checkPoint1 = (Customer)history[history.First().Key];
             var checkPoint2 = (Customer)history[history.Last().Key];
@@ -58,12 +58,12 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
 
-            _poco = new Customer();
+            _entity = new Customer();
             const string name = "joe blow";
-            _poco.Name = name;
-            _poco.Save(_dataBroker);
+            _entity.Name = name;
+            _entity.Save(_dataBroker);
 
-            Assert.IsTrue(_poco.Id != null);
+            Assert.IsTrue(_entity.Id != null);
             Assert.IsTrue(_dataBroker.CustomerData.Count == 1);
         }
 
@@ -71,16 +71,16 @@ namespace GroceryStore.Tests
         public override void SaveExisting()
         {
             SetupDataBroker();
-            _poco = new Customer { Id = 1, Name = "joe blow" };
-            var custId = _poco.Id.GetValueOrDefault();
-            _poco.CreateCheckPoint();
-            var clone = (Customer)_poco.CurrentCheckPoint;
+            _entity = new Customer { Id = 1, Name = "joe blow" };
+            var custId = _entity.Id.GetValueOrDefault();
+            _entity.CreateCheckPoint();
+            var clone = (Customer)_entity.CurrentCheckPoint;
             _dataBroker.CustomerData.Add(clone.Id.GetValueOrDefault(), clone);
 
-            _poco.Name = "jack black";
+            _entity.Name = "jack black";
 
-            _poco.Save(_dataBroker);
-            Assert.IsTrue(_poco.Id == custId);
+            _entity.Save(_dataBroker);
+            Assert.IsTrue(_entity.Id == custId);
             Assert.IsTrue(_dataBroker.CustomerData.Count == 1);
         }
     }

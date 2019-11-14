@@ -20,7 +20,7 @@ namespace GroceryStore.Tests
 
         protected override void EditPoco()
         {
-            _poco.CustomerId = _rnd.Next();
+            _entity.CustomerId = _rnd.Next();
         }
 
         protected override Order CreateNew()
@@ -37,34 +37,34 @@ namespace GroceryStore.Tests
         [TestMethod]
         public override void Changes()
         {
-            _poco = new Order();
-            var history = _poco.CheckPointHistory;
+            _entity = new Order();
+            var history = _entity.CheckPointHistory;
 
             const int initialCustomerId = 1;
             const int changedCustomerId = 2;
 
-            _poco.CustomerId = initialCustomerId;
-            _poco.Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } };
+            _entity.CustomerId = initialCustomerId;
+            _entity.Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } };
             
-            _poco.CreateCheckPoint();
-            var currentCheckPoint = (Order)_poco.CurrentCheckPoint;
-            var items1 = _poco.Items.ToList();
+            _entity.CreateCheckPoint();
+            var currentCheckPoint = (Order)_entity.CurrentCheckPoint;
+            var items1 = _entity.Items.ToList();
 
-            Assert.IsTrue(_poco.CustomerId == currentCheckPoint.CustomerId);
-            CollectionAssert.AreEqual(_poco.Items.ToArray(), currentCheckPoint.Items.ToArray());
+            Assert.IsTrue(_entity.CustomerId == currentCheckPoint.CustomerId);
+            CollectionAssert.AreEqual(_entity.Items.ToArray(), currentCheckPoint.Items.ToArray());
 
-            _poco.CustomerId = changedCustomerId;
-            _poco.Items.Add(new OrderItem { ProductId = 2, Quantity = 2 });
-            var items2 = _poco.Items.ToArray();
+            _entity.CustomerId = changedCustomerId;
+            _entity.Items.Add(new OrderItem { ProductId = 2, Quantity = 2 });
+            var items2 = _entity.Items.ToArray();
 
-            Assert.IsFalse(_poco.CustomerId == currentCheckPoint.CustomerId);
-            CollectionAssert.AreNotEqual(_poco.Items.ToArray(), currentCheckPoint.Items.ToArray());
+            Assert.IsFalse(_entity.CustomerId == currentCheckPoint.CustomerId);
+            CollectionAssert.AreNotEqual(_entity.Items.ToArray(), currentCheckPoint.Items.ToArray());
 
-            _poco.CreateCheckPoint();
-            currentCheckPoint = (Order)_poco.CurrentCheckPoint;
+            _entity.CreateCheckPoint();
+            currentCheckPoint = (Order)_entity.CurrentCheckPoint;
 
-            Assert.IsTrue(_poco.CustomerId == currentCheckPoint.CustomerId);
-            CollectionAssert.AreEqual(_poco.Items.ToArray(), currentCheckPoint.Items.ToArray());
+            Assert.IsTrue(_entity.CustomerId == currentCheckPoint.CustomerId);
+            CollectionAssert.AreEqual(_entity.Items.ToArray(), currentCheckPoint.Items.ToArray());
 
             var checkPoint1 = (Order)history[history.First().Key];
             var checkPoint2 = (Order)history[history.Last().Key];
@@ -80,11 +80,11 @@ namespace GroceryStore.Tests
         public override void SaveNew()
         {
             SetupDataBroker();
-            _poco = new Order { CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } } };
+            _entity = new Order { CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } } };
 
-            _poco.Save(_dataBroker);
+            _entity.Save(_dataBroker);
 
-            Assert.IsTrue(_poco.Id != null);
+            Assert.IsTrue(_entity.Id != null);
             Assert.IsTrue(_dataBroker.OrderData.Count == 1);
         }
 
@@ -92,16 +92,16 @@ namespace GroceryStore.Tests
         public override void SaveExisting()
         {
             SetupDataBroker();
-            _poco = new Order { Id = 1, CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } } };
-            var orderId = _poco.Id.GetValueOrDefault();
-            _poco.CreateCheckPoint();
-            var clone = (Order)_poco.CurrentCheckPoint;
+            _entity = new Order { Id = 1, CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } } };
+            var orderId = _entity.Id.GetValueOrDefault();
+            _entity.CreateCheckPoint();
+            var clone = (Order)_entity.CurrentCheckPoint;
             _dataBroker.OrderData.Add(clone.Id.GetValueOrDefault(), clone);
 
-            _poco.Items.Add(new OrderItem { ProductId = 2, Quantity = 2 });
-            _poco.Save(_dataBroker);
+            _entity.Items.Add(new OrderItem { ProductId = 2, Quantity = 2 });
+            _entity.Save(_dataBroker);
 
-            Assert.IsTrue(_poco.Id == orderId);
+            Assert.IsTrue(_entity.Id == orderId);
             Assert.IsTrue(_dataBroker.OrderData.Count == 1);
 
 
