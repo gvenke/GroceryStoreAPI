@@ -10,6 +10,7 @@ namespace GroceryStore.Entity
 {
     public abstract class EntityBase
     {
+        // a completely arbitrary number I just pulled out of a hat
         public const byte MaxCheckPoints = 3;
 
         protected SortedDictionary<DateTime, EntityBase> _checkPoints;
@@ -25,12 +26,17 @@ namespace GroceryStore.Entity
 
         public EntityBase CurrentCheckPoint => _checkPoint;
 
+        /// <summary>
+        /// the checkpoint system uses the "Memento" design pattern to track changes
+        /// </summary>
         public void CreateCheckPoint()
         {
 
             _checkPoint = CreateNewCheckPoint();
 
             bool added = false;
+
+            // looping here in event of a dupe key - which could happen during multiple calls in quick succession
             while(!added)
             {
                 try
@@ -71,7 +77,10 @@ namespace GroceryStore.Entity
             _checkPoints = new SortedDictionary<DateTime, EntityBase>();
         }
 
-
+        /// <summary>
+        /// implementations should create deep copies of the current object
+        /// </summary>
+        /// <returns></returns>
         protected abstract EntityBase CreateNewCheckPoint();
 
         protected abstract bool HasBeenChanged();
@@ -80,6 +89,11 @@ namespace GroceryStore.Entity
 
         protected abstract void SaveExisting(IDataBroker dataBroker);
 
+        /// <summary>
+        /// limiting the access to prevent saving outside the GrocvceryStore class. We're using
+        /// the InternalsVisibleTo to allow an exemption for unit tests
+        /// </summary>
+        /// <param name="dataBroker"></param>
         internal void Save(IDataBroker dataBroker)
         {
             if (IsNew()) {

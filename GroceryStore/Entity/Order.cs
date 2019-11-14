@@ -10,12 +10,6 @@ namespace GroceryStore.Entity
     public class Order : EntityBase
     {
 
-        // limiting ctor access to avoid newing up outside factory method
-        public Order() : base()
-        {
-
-        }
-
         protected override bool HasBeenChanged()
         {
             var checkPoint = (Order)_checkPoint;
@@ -28,6 +22,8 @@ namespace GroceryStore.Entity
             checkPoint.Id = Id;
             checkPoint.CustomerId = CustomerId;
             checkPoint.OrderDate = OrderDate;
+
+            // items are shallow copies at the moment (not what we want)
             checkPoint.Items = Items.ToList();
 
             return checkPoint;

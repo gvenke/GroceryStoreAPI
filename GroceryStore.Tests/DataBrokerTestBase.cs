@@ -7,6 +7,10 @@ using GroceryStore.Utility;
 
 namespace GroceryStore.Tests
 {
+    /// <summary>
+    ///  base class to be used for all IDataBroker implementation UTs. Helps enforce important
+    ///  rules apart from those enforced by the interface contracts.
+    /// </summary>
     [TestClass]
     public abstract class DataBrokerTestBase : EntityTestDataBase
     {

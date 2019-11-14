@@ -7,11 +7,6 @@ namespace GroceryStore.Entity
     [DataContract]
     public class Customer : EntityBase
     {
-        // limiting ctor access to avoid newing up outside factory method
-        public Customer() : base()
-        {
-
-        }
 
         protected override bool HasBeenChanged()
         {

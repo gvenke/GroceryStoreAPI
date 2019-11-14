@@ -11,6 +11,11 @@ using System.Text;
 
 namespace GroceryStore.Utility
 {
+    /// <summary>
+    /// utility class used for all JSON CRUD operations. Obviously, this wouldn't scale well if the 
+    /// "database" is too large because everything is loaded into memory before the targeted item(s)
+    /// is retrieved.
+    /// </summary>
     public class EntityJsonFileManager
     {
         private string _filePath;

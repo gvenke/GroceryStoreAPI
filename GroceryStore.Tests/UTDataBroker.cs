@@ -7,6 +7,9 @@ using GroceryStore.Utility;
 
 namespace GroceryStore.Tests
 {    
+    /// <summary>
+    /// I'm using this Fake in leouof traditional mocks because of the added benefit of the baked-in collections
+    /// </summary>
     public class UTDataBroker : IDataBroker
     {
         public Dictionary<int, Customer> CustomerData { get; internal set; }
@@ -68,6 +71,8 @@ namespace GroceryStore.Tests
         public void SaveCustomer(Customer customer)
         {
             customer.CreateCheckPoint();
+
+            // cloning the object to separate it from the original object - thereby simulating a real-life data insertion
             var clone = (Customer)customer.CurrentCheckPoint;
 
             if (customer.Id == null)
@@ -90,6 +95,8 @@ namespace GroceryStore.Tests
         public void SaveOrder(Order order)
         {
             order.CreateCheckPoint();
+
+            // cloning the object to separate it from the original object - thereby simulating a real-life data insertion
             var clone = (Order)order.CurrentCheckPoint;
     
             if (order.Id == null)
@@ -113,6 +120,8 @@ namespace GroceryStore.Tests
         public void SaveProduct(Product product)
         {
             product.CreateCheckPoint();
+
+            // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Product)product.CurrentCheckPoint;
             if (product.Id == null)
             {
@@ -138,6 +147,8 @@ namespace GroceryStore.Tests
             }
             var customerId = customer.Id.GetValueOrDefault();
             customer.CreateCheckPoint();
+
+            // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Customer)customer.CurrentCheckPoint;
 
             if (!CustomerData.ContainsKey(customerId))
@@ -155,6 +166,8 @@ namespace GroceryStore.Tests
             }
             var productId = product.Id.GetValueOrDefault();
             product.CreateCheckPoint();
+
+            // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Product)product.CurrentCheckPoint;
 
             if (!ProductData.ContainsKey(productId))
@@ -173,6 +186,8 @@ namespace GroceryStore.Tests
             }
             var orderId = order.Id.GetValueOrDefault();
             order.CreateCheckPoint();
+
+            // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Order)order.CurrentCheckPoint;
 
             if (!OrderData.ContainsKey(orderId))

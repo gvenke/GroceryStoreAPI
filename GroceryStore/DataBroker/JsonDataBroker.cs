@@ -5,6 +5,11 @@ using GroceryStore.Utility;
 
 namespace GroceryStore.DataBroker
 {
+    /// <summary>
+    /// this implementation is to honor json files of the type included in the bare solution.
+    /// Although, I can't see a real-world application for this scenario, it works fine for this
+    /// exercise.
+    /// </summary>
     public class JsonDataBroker : IDataBroker
     {
         public const string CustomerSection = "customers";

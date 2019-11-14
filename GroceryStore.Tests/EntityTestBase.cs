@@ -50,6 +50,7 @@ namespace GroceryStore.Tests
                 {
                     break;
                 }
+                prevCheckPoint = curCheckPoint;
             }
             Assert.IsFalse(invalid, "all checkpoints should be separate references");
 
