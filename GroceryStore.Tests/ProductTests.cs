@@ -17,7 +17,7 @@ namespace GroceryStore.Tests
         }
 
 
-        protected override void EditPoco()
+        protected override void Edit()
         {
             _entity.Price= _rnd.NextDouble();
         }

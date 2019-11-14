@@ -62,7 +62,7 @@ namespace GroceryStore.Tests
             _entity = new T();
             for (int i = 1; i <= 8; i++)
             {
-                EditPoco();
+                Edit();
                 _entity.CreateCheckPoint();
             }
 
@@ -85,7 +85,7 @@ namespace GroceryStore.Tests
             _entity = new T();           
             _entity.CreateCheckPoint();
             Assert.IsFalse(_entity.IsDirty());
-            EditPoco();
+            Edit();
             Assert.IsTrue(_entity.IsDirty());
             _entity.CreateCheckPoint();
             Assert.IsFalse(_entity.IsDirty());
@@ -138,7 +138,7 @@ namespace GroceryStore.Tests
 
         public abstract void SaveExisting();
 
-        protected abstract void EditPoco();
+        protected abstract void Edit();
 
         protected  void SetupDataBroker()
         {

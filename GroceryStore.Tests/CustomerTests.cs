@@ -16,7 +16,7 @@ namespace GroceryStore.Tests
             _rnd = new Random();
         }
 
-        protected override void EditPoco()
+        protected override void Edit()
         {
             _entity.Name = Guid.NewGuid().ToString();
         }

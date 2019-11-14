@@ -18,7 +18,7 @@ namespace GroceryStore.Tests
         }
 
 
-        protected override void EditPoco()
+        protected override void Edit()
         {
             _entity.CustomerId = _rnd.Next();
         }
