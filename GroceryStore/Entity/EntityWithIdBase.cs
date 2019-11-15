@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
-using GroceryStore.DataBroker;
+﻿using System.Runtime.Serialization;
 
 namespace GroceryStore.Entity
 {

@@ -61,7 +61,6 @@ namespace GroceryStore.Tests
             _entity = new T();
             for (int i = 1; i <= 8; i++)
             {
-                Edit();
                 _entity.CreateCheckPoint();
             }
 
@@ -133,8 +132,6 @@ namespace GroceryStore.Tests
             Assert.IsFalse(_entity.IsNew());
         }
 
-
-
         protected abstract T CreateNew();
 
         protected abstract T CreateExisting();
@@ -151,6 +148,5 @@ namespace GroceryStore.Tests
         {
             _dataBroker = new UTDataBroker();
         }
-
     }
 }
