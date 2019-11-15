@@ -4,7 +4,7 @@ using GroceryStore.DataBroker;
 namespace GroceryStore.Entity
 {
     [DataContract]
-    public class Product : EntityBase
+    public class Product : EntityWithIdBase
     {
 
         protected override bool HasBeenChanged()
@@ -20,9 +20,6 @@ namespace GroceryStore.Entity
         }
 
         [DataMember]
-        public int? Id { get; set; }
-
-        [DataMember]
         public string Description { get; set; }
 
         [DataMember]
@@ -31,11 +28,6 @@ namespace GroceryStore.Entity
         protected override void SaveNew(IDataBroker dataBroker)
         {
             dataBroker.SaveProduct(this);
-        }
-
-        public override bool IsNew()
-        {
-            return Id == null;
         }
 
         protected override void SaveExisting(IDataBroker dataBroker)

@@ -4,7 +4,7 @@ using GroceryStore.DataBroker;
 namespace GroceryStore.Entity
 {
     [DataContract]
-    public class Customer : EntityBase
+    public class Customer : EntityWithIdBase
     {
 
         protected override bool HasBeenChanged()
@@ -20,15 +20,7 @@ namespace GroceryStore.Entity
         }
 
         [DataMember]
-        public int? Id { get; set; }
-
-        [DataMember]
         public string Name { get; set; }
-
-        public override bool IsNew()
-        {
-            return Id == null;
-        }
 
         protected override void SaveNew(IDataBroker dataBroker)
         {

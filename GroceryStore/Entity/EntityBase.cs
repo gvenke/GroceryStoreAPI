@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace GroceryStore.Entity
 {
+    /// <summary>
+    /// base class for all Entity classes
+    /// </summary>
     public abstract class EntityBase
     {
         // a completely arbitrary number I just pulled out of a hat

@@ -7,7 +7,7 @@ using System.Linq;
 namespace GroceryStore.Entity
 {
     [DataContract]
-    public class Order : EntityBase
+    public class Order : EntityWithIdBase
     {
         protected override bool HasBeenChanged()
         {
@@ -26,9 +26,6 @@ namespace GroceryStore.Entity
         }
 
         [DataMember]
-        public int? Id { get; set; }
-
-        [DataMember]
         public DateTime OrderDate { get; set; }
 
         [DataMember]
@@ -36,11 +33,6 @@ namespace GroceryStore.Entity
 
         [DataMember]
         public int CustomerId { get; set; }
-
-        public override bool IsNew()
-        {
-            return Id == null;
-        }
 
         protected override void SaveNew(IDataBroker dataBroker)
         {
