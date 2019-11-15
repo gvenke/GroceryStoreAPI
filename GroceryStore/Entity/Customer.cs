@@ -15,12 +15,7 @@ namespace GroceryStore.Entity
 
         protected  override EntityBase CreateNewCheckPoint()
         {
-            var checkPoint = (Customer)MemberwiseClone();
-            if (Name != null)
-            {
-                checkPoint.Name = string.Copy(Name);
-                checkPoint.Id = Id;
-            }            
+            var checkPoint = (Customer)MemberwiseClone();          
             return checkPoint;
         }
 

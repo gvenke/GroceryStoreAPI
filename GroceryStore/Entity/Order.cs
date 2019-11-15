@@ -9,7 +9,6 @@ namespace GroceryStore.Entity
     [DataContract]
     public class Order : EntityBase
     {
-
         protected override bool HasBeenChanged()
         {
             var checkPoint = (Order)_checkPoint;
@@ -19,9 +18,6 @@ namespace GroceryStore.Entity
         protected override EntityBase CreateNewCheckPoint()
         {
             var checkPoint = (Order)MemberwiseClone();
-            checkPoint.Id = Id;
-            checkPoint.CustomerId = CustomerId;
-            checkPoint.OrderDate = OrderDate;
 
             // items are shallow copies at the moment (not what we want)
             checkPoint.Items = Items.ToList();
