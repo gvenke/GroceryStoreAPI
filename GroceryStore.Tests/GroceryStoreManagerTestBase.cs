@@ -197,6 +197,49 @@ namespace GroceryStore.Tests
             Assert.AreEqual(0, orderData.Count());
         }
 
+        [TestMethod]
+        public void SaveNull()
+        {
+            SetupGroceryStore();
+            Assert.ThrowsException<NullReferenceException>(() => _groceryStore.Save(null));
+        }
+
+        [TestMethod]
+        public void SaveNew()
+        {
+            SetupGroceryStore();
+            var customer = _groceryStore.CreateCustomer();
+            customer.Name = "joe blow";
+            _groceryStore.Save(customer);
+
+            Assert.AreEqual(1, customer.Id);
+            Assert.AreEqual(2, customer.CheckPointHistory.Count);
+
+            customer = null;
+            customer = _groceryStore.GetCustomer(1);
+            Assert.IsNotNull(customer);
+        }
+
+        [TestMethod]
+        public void SaveExisting()
+        {
+            SetupGroceryStore();
+            PopulateCustomerData();
+
+            const string newName = "candy Barr";
+            var customer = _groceryStore.GetCustomer(1);
+            customer.Name = newName;
+            _groceryStore.Save(customer);
+
+            Assert.AreEqual(2, customer.CheckPointHistory.Count);
+
+            var customers = _groceryStore.GetCustomers();
+            Assert.AreEqual(_customers.Length, customers.Count());
+
+            var updatedCustomer = customers.First(o => o.Id == customer.Id);
+            Assert.AreEqual(newName, updatedCustomer.Name);        
+        }
+
         private void SetupGroceryStore()
         {
             SetupDataBroker();

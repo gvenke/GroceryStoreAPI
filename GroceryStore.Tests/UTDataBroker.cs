@@ -71,6 +71,7 @@ namespace GroceryStore.Tests
         public void SaveCustomer(Customer customer)
         {
             customer.CreateCheckPoint();
+            var keyToRemove = customer.CheckPointHistory.Last().Key;
 
             // cloning the object to separate it from the original object - thereby simulating a real-life data insertion
             var clone = (Customer)customer.CurrentCheckPoint;
@@ -89,7 +90,9 @@ namespace GroceryStore.Tests
             }
             
             customer.Id = clone.Id;
-       
+
+            //get rid of checkpoint
+            customer.CheckPointHistory.Remove(keyToRemove);
         }
 
         public void SaveOrder(Order order)
@@ -98,7 +101,9 @@ namespace GroceryStore.Tests
 
             // cloning the object to separate it from the original object - thereby simulating a real-life data insertion
             var clone = (Order)order.CurrentCheckPoint;
-    
+            var keyToRemove = order.CheckPointHistory.Last().Key;
+
+
             if (order.Id == null)
             {
                 var values = OrderData.Values;
@@ -114,12 +119,15 @@ namespace GroceryStore.Tests
                 throw new DuplicateEntityKeyException("duplicate key insertion not allowed", clone.Id);
             }            
             order.Id = clone.Id;
-     
+
+            //get rid of checkpoint
+            order.CheckPointHistory.Remove(keyToRemove);
         }
 
         public void SaveProduct(Product product)
         {
             product.CreateCheckPoint();
+            var keyToRemove = product.CheckPointHistory.Last().Key;
 
             // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Product)product.CurrentCheckPoint;
@@ -137,6 +145,9 @@ namespace GroceryStore.Tests
                 throw new DuplicateEntityKeyException("duplicate key insertion not allowed", clone.Id);
             }            
             product.Id = clone.Id;
+
+            //get rid of checkpoint
+            product.CheckPointHistory.Remove(keyToRemove);
         }
 
         public void UpdateCustomer(Customer customer)
@@ -147,6 +158,7 @@ namespace GroceryStore.Tests
             }
             var customerId = customer.Id.GetValueOrDefault();
             customer.CreateCheckPoint();
+            var keyToRemove = customer.CheckPointHistory.Last().Key;
 
             // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Customer)customer.CurrentCheckPoint;
@@ -156,6 +168,9 @@ namespace GroceryStore.Tests
                 throw new InvalidOperationException("customer not found");
             }
             CustomerData[customerId] = clone;
+
+            //get rid of checkpoint
+            customer.CheckPointHistory.Remove(keyToRemove);
         }
 
         public void UpdateProduct(Product product)
@@ -166,6 +181,7 @@ namespace GroceryStore.Tests
             }
             var productId = product.Id.GetValueOrDefault();
             product.CreateCheckPoint();
+            var keyToRemove = product.CheckPointHistory.Last().Key;
 
             // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Product)product.CurrentCheckPoint;
@@ -176,6 +192,8 @@ namespace GroceryStore.Tests
             }
             ProductData[productId] = clone;
 
+            //get rid of checkpoint
+            product.CheckPointHistory.Remove(keyToRemove);
         }
 
         public void UpdateOrder(Order order)
@@ -186,6 +204,7 @@ namespace GroceryStore.Tests
             }
             var orderId = order.Id.GetValueOrDefault();
             order.CreateCheckPoint();
+            var keyToRemove = order.CheckPointHistory.Last().Key;
 
             // cloning the object to separate it from the original - thereby simulating a real-life data insertion
             var clone = (Order)order.CurrentCheckPoint;
@@ -195,6 +214,9 @@ namespace GroceryStore.Tests
                 throw new InvalidOperationException("order not found");
             }
             OrderData[orderId] = clone;
+
+            //get rid of checkpoint
+            order.CheckPointHistory.Remove(keyToRemove);
         }
     }
 }
