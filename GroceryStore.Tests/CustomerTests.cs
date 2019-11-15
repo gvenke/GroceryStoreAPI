@@ -40,10 +40,15 @@ namespace GroceryStore.Tests
             var history = _entity.CheckPointHistory;           
             _entity.Name = initialName;
             _entity.CreateCheckPoint();
+
             Assert.IsTrue(_entity.Name == ((Customer)_entity.CurrentCheckPoint).Name);
+
             _entity.Name = changedName;
+
             Assert.IsTrue(_entity.Name != ((Customer)_entity.CurrentCheckPoint).Name);
+
             _entity.CreateCheckPoint();
+
             Assert.IsTrue(_entity.Name == ((Customer)_entity.CurrentCheckPoint).Name);
 
             var checkPoint1 = (Customer)history[history.First().Key];
@@ -57,7 +62,6 @@ namespace GroceryStore.Tests
         public override void SaveNew()
         {
             SetupDataBroker();
-
             _entity = new Customer();
             const string name = "joe blow";
             _entity.Name = name;
@@ -76,10 +80,9 @@ namespace GroceryStore.Tests
             _entity.CreateCheckPoint();
             var clone = (Customer)_entity.CurrentCheckPoint;
             _dataBroker.CustomerData.Add(clone.Id.GetValueOrDefault(), clone);
-
             _entity.Name = "jack black";
-
             _entity.Save(_dataBroker);
+
             Assert.IsTrue(_entity.Id == custId);
             Assert.IsTrue(_dataBroker.CustomerData.Count == 1);
         }

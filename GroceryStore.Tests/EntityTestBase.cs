@@ -15,13 +15,12 @@ namespace GroceryStore.Tests
         protected T _entity;
         protected UTDataBroker _dataBroker;
 
-
-
         [TestMethod]
         public void CheckPointSingle()
         {
             _entity = new T();
             _entity.CreateCheckPoint();
+
             Assert.IsNotNull(_entity.CurrentCheckPoint, "checkpoint should not be null");
             Assert.IsNotNull(_entity.CheckPointHistory, "checkpoint history should not be null");
             Assert.AreEqual(1, _entity.CheckPointHistory.Count);
@@ -34,7 +33,6 @@ namespace GroceryStore.Tests
             _entity = new T();
             _entity.CreateCheckPoint();
             var history = _entity.CheckPointHistory;
-            //System.Threading.Thread.Sleep(1000);
            _entity.CreateCheckPoint();
 
 
@@ -53,6 +51,7 @@ namespace GroceryStore.Tests
                 }
                 prevCheckPoint = curCheckPoint;
             }
+
             Assert.IsFalse(invalid, "all checkpoints should be separate references");
         }
 
@@ -84,10 +83,15 @@ namespace GroceryStore.Tests
         {
             _entity = new T();           
             _entity.CreateCheckPoint();
+
             Assert.IsFalse(_entity.IsDirty());
+
             Edit();
+
             Assert.IsTrue(_entity.IsDirty());
+
             _entity.CreateCheckPoint();
+
             Assert.IsFalse(_entity.IsDirty());
         }
 
@@ -109,6 +113,7 @@ namespace GroceryStore.Tests
         public void IsDirtyWithNoCheckPoint()
         {
             _entity = new T();
+
             Assert.ThrowsException<InvalidOperationException>(() => _entity.IsDirty());
         }
 
@@ -116,6 +121,7 @@ namespace GroceryStore.Tests
         public void IsNew()
         {
             _entity = CreateNew();
+
             Assert.IsTrue(_entity.IsNew());
         }
 
@@ -123,6 +129,7 @@ namespace GroceryStore.Tests
         public void IsNotNew()
         {
             _entity = CreateExisting();
+
             Assert.IsFalse(_entity.IsNew());
         }
 

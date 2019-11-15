@@ -7,7 +7,6 @@ namespace GroceryStore.Tests
 {
     public abstract class EntityTestDataBase
     {
-
         protected IDataBroker _dataBroker;
         protected Product[] _products;
         protected Order[] _orders;

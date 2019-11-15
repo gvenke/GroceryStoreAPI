@@ -20,8 +20,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateCustomerData();
-
             var customer = _dataBroker.GetCustomer(1);
+
             Assert.IsNotNull(customer);
             Assert.AreEqual(1, customer.Id);
         }
@@ -31,8 +31,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateCustomerData();
-
             var customer = _dataBroker.GetCustomer(9);
+
             Assert.IsNull(customer);
         }
 
@@ -42,6 +42,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateCustomerData();
             var customers = _dataBroker.GetCustomers();
+
             Assert.IsNotNull(customers);
             Assert.AreEqual(_customers.Length, customers.Count());
         }
@@ -51,8 +52,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateOrderData();
-
             var order = _dataBroker.GetOrder(1);
+
             Assert.IsNotNull(order);
             Assert.AreEqual(1, order.Id);
         }
@@ -62,8 +63,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateOrderData();
-
             var order = _dataBroker.GetOrder(9);
+
             Assert.IsNull(order);
 
         }
@@ -74,6 +75,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateOrderData();
             var orders = _dataBroker.GetOrders();
+
             Assert.IsNotNull(orders);
             Assert.AreEqual(_orders.Length, orders.Count());
         }
@@ -84,6 +86,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateOrderData();
             var orders = _dataBroker.GetOrders(1);
+
             Assert.IsNotNull(orders);
             Assert.AreEqual(1, orders.Count());
             Assert.AreEqual(1, orders.First().Id);
@@ -95,6 +98,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateOrderData();
             var orders = _dataBroker.GetOrders(DateTime.Parse("2/1/2019"));
+
             Assert.IsNotNull(orders);
             Assert.AreEqual(1, orders.Count());
             Assert.AreEqual(2, orders.First().Id);
@@ -105,8 +109,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateProductData();
-
             var product = _dataBroker.GetProduct(1);
+
             Assert.IsNotNull(product);
             Assert.AreEqual(1, product.Id);
         }
@@ -116,8 +120,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateProductData();
-
             var product = _dataBroker.GetProduct(9);
+
             Assert.IsNull(product);
         }
 
@@ -127,6 +131,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateProductData();
             var products = _dataBroker.GetProducts();
+
             Assert.IsNotNull(products);
             Assert.AreEqual(_products.Length, products.Count());
         }
@@ -138,11 +143,12 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             var newCustomer = new Customer { Name = "Candy Barr" };
             _dataBroker.SaveCustomer(newCustomer);
-
             var newId = newCustomer.Id;
+
             Assert.IsNotNull(newId);
 
             var savedCustomer = _dataBroker.GetCustomer(newId.GetValueOrDefault());
+
             Assert.IsNotNull(savedCustomer);
             Assert.IsTrue(savedCustomer.Name == newCustomer.Name);
         }
@@ -151,6 +157,7 @@ namespace GroceryStore.Tests
         public void SaveNullCustomer()
         {
             SetupDataBroker();
+
             Assert.ThrowsException<NullReferenceException>(() => _dataBroker.SaveCustomer(null));
         }
 
@@ -160,6 +167,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateCustomerData();
             var newCustomer = new Customer { Id = 1, Name = "Candy Barr" };
+
             Assert.ThrowsException<DuplicateEntityKeyException>(() => _dataBroker.SaveCustomer(newCustomer));
         }
 
@@ -180,6 +188,7 @@ namespace GroceryStore.Tests
         public void UpdateNullCustomer()
         {
             SetupDataBroker();
+
             Assert.ThrowsException<NullReferenceException>(() => _dataBroker.UpdateCustomer(null));
         }
 
@@ -187,8 +196,8 @@ namespace GroceryStore.Tests
         public void UpdateCustomerNullId()
         {
             SetupDataBroker();
-
             var newCustomer= new Customer { Name = "Candy Barr" };
+
             Assert.ThrowsException<InvalidOperationException>(() => _dataBroker.UpdateCustomer(newCustomer));
         }
 
@@ -197,8 +206,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateCustomerData();
-
             var newCustomer = new Customer { Id = 9, Name = "Candy Barr" };
+
             Assert.ThrowsException<InvalidOperationException>(() => _dataBroker.UpdateCustomer(newCustomer));
         }
 
@@ -209,9 +218,11 @@ namespace GroceryStore.Tests
             var newOrder = new Order { CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 2, Quantity = 1 } } };
             _dataBroker.SaveOrder(newOrder);
             var newId = newOrder.Id;
+
             Assert.IsNotNull(newId);
 
             var savedOrder = _dataBroker.GetOrder(newId.GetValueOrDefault());
+
             Assert.IsNotNull(savedOrder);
             Assert.IsTrue(newOrder.CustomerId == savedOrder.CustomerId && newOrder.OrderDate == savedOrder.OrderDate && newOrder.Items.Count == savedOrder.Items.Count);
         }
@@ -220,6 +231,7 @@ namespace GroceryStore.Tests
         public void SaveNullOrder()
         {
             SetupDataBroker();
+
             Assert.ThrowsException<NullReferenceException>(() => _dataBroker.SaveOrder(null));
         }
 
@@ -229,6 +241,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateOrderData();
             var newOrder = new Order { Id = 1, CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 2, Quantity = 1 } } };
+
             Assert.ThrowsException<DuplicateEntityKeyException>(() => _dataBroker.SaveOrder(newOrder));
         }
 
@@ -241,9 +254,11 @@ namespace GroceryStore.Tests
             var newOrder = new Order { Id = 1, CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 2, Quantity = 1 } } };
             _dataBroker.UpdateOrder(newOrder);
             var newId = newOrder.Id;
+
             Assert.IsNotNull(newId);
 
             var updatedOrder = _dataBroker.GetOrder(newId.GetValueOrDefault());
+
             Assert.IsNotNull(updatedOrder);
             Assert.IsTrue(newOrder.CustomerId == updatedOrder.CustomerId && newOrder.OrderDate == updatedOrder.OrderDate && newOrder.Items.Count == updatedOrder.Items.Count);
         }
@@ -252,6 +267,7 @@ namespace GroceryStore.Tests
         public void UpdateNullOrder()
         {
             SetupDataBroker();
+
             Assert.ThrowsException<NullReferenceException>(() => _dataBroker.UpdateOrder(null));
         }
 
@@ -260,8 +276,8 @@ namespace GroceryStore.Tests
         public void UpdateOrderNullId()
         {
             SetupDataBroker();
-
             var newOrder = new Order { CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 2, Quantity = 1 } } };
+
             Assert.ThrowsException<InvalidOperationException>(() => _dataBroker.UpdateOrder(newOrder));
         }
 
@@ -270,8 +286,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateOrderData();
-
             var newOrder = new Order { Id = 9, CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 2, Quantity = 1 } } };
+
             Assert.ThrowsException<InvalidOperationException>(() => _dataBroker.UpdateOrder(newOrder));
         }
 
@@ -282,9 +298,11 @@ namespace GroceryStore.Tests
             var newProduct = new Product { Price = 2.99, Description = "test desc" };
             _dataBroker.SaveProduct(newProduct);
             var newId = newProduct.Id;
+
             Assert.IsNotNull(newId);
 
             var savedProduct = _dataBroker.GetProduct(newId.GetValueOrDefault());
+
             Assert.IsNotNull(savedProduct);
             Assert.IsTrue(savedProduct.Price == newProduct.Price && savedProduct.Description == newProduct.Description);
         }
@@ -293,6 +311,7 @@ namespace GroceryStore.Tests
         public void SaveNullProduct()
         {
             SetupDataBroker();
+
             Assert.ThrowsException<NullReferenceException>(() => _dataBroker.SaveProduct(null));
         }
 
@@ -302,6 +321,7 @@ namespace GroceryStore.Tests
             SetupDataBroker();
             PopulateProductData();
             var newProduct = new Product { Id = 1, Price = 2.99, Description = "test desc" };
+
             Assert.ThrowsException<DuplicateEntityKeyException>(() => _dataBroker.SaveProduct(newProduct));
         }
 
@@ -313,6 +333,7 @@ namespace GroceryStore.Tests
             var newProduct = new Product { Id = 1, Price = 3.99, Description = "updated test desc" };
             _dataBroker.UpdateProduct(newProduct);
             var updatedProduct = _dataBroker.GetProduct(1);
+
             Assert.IsNotNull(updatedProduct);
             Assert.IsTrue(updatedProduct.Price == newProduct.Price && updatedProduct.Description == newProduct.Description);
         }
@@ -321,6 +342,7 @@ namespace GroceryStore.Tests
         public void UpdateNullProduct()
         {
             SetupDataBroker();
+
             Assert.ThrowsException<NullReferenceException>(() => _dataBroker.UpdateProduct(null));
         }
 
@@ -328,8 +350,8 @@ namespace GroceryStore.Tests
         public void UpdateProductNullId()
         {
             SetupDataBroker();
-
             var newProduct = new Product { Price = 2.99, Description = "test desc" };
+
             Assert.ThrowsException<InvalidOperationException>(() => _dataBroker.UpdateProduct(newProduct));
         }
 
@@ -338,8 +360,8 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             PopulateProductData();
-
             var newProduct = new Product { Id = 9, Price = 2.99, Description = "test desc" };
+
             Assert.ThrowsException<InvalidOperationException>(() => _dataBroker.UpdateProduct(newProduct));
         }
     }

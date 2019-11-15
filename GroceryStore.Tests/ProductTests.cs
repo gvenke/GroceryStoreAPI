@@ -16,7 +16,6 @@ namespace GroceryStore.Tests
             _rnd = new Random();
         }
 
-
         protected override void Edit()
         {
             _entity.Price= _rnd.NextDouble();
@@ -42,7 +41,6 @@ namespace GroceryStore.Tests
 
             _entity = new Product();
             var history = _entity.CheckPointHistory;
-
             _entity.Description = initialDesc;
             _entity.Price = initialPrice;
             _entity.CreateCheckPoint();
@@ -50,13 +48,14 @@ namespace GroceryStore.Tests
             Assert.IsTrue(_entity.Description == ((Product)_entity.CurrentCheckPoint).Description);
             Assert.IsTrue(_entity.Price == ((Product)_entity.CurrentCheckPoint).Price);
 
-
             _entity.Description = changedDesc;
             _entity.Price = changedPrice;
+
             Assert.IsTrue(_entity.Description != ((Product)_entity.CurrentCheckPoint).Description);
             Assert.IsTrue(_entity.Price != ((Product)_entity.CurrentCheckPoint).Price);
 
             _entity.CreateCheckPoint();
+
             Assert.IsTrue(_entity.Description == ((Product)_entity.CurrentCheckPoint).Description);
             Assert.IsTrue(_entity.Price == ((Product)_entity.CurrentCheckPoint).Price);
 
@@ -65,7 +64,6 @@ namespace GroceryStore.Tests
 
             Assert.AreEqual(initialDesc, checkPoint1.Description);
             Assert.AreEqual(changedDesc, checkPoint2.Description);
-
             Assert.AreEqual(initialPrice, checkPoint1.Price);
             Assert.AreEqual(changedPrice, checkPoint2.Price);
         }
@@ -74,9 +72,7 @@ namespace GroceryStore.Tests
         public override void SaveNew()
         {
             SetupDataBroker();
-
-            _entity = new Product();
-  
+            _entity = new Product(); 
             _entity.Description = "test desc";
             _entity.Price = 12.99;
             _entity.Save(_dataBroker);
@@ -94,13 +90,11 @@ namespace GroceryStore.Tests
             _entity.CreateCheckPoint();
             var clone = (Product)_entity.CurrentCheckPoint;
             _dataBroker.ProductData.Add(clone.Id.GetValueOrDefault(), clone);
-
             _entity.Description = "changed desc";
-
             _entity.Save(_dataBroker);
+
             Assert.IsTrue(_entity.Id == productId);
             Assert.IsTrue(_dataBroker.ProductData.Count == 1);
         }
-
     }
 }

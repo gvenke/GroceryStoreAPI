@@ -87,8 +87,7 @@ namespace GroceryStore.Tests
             } catch(ArgumentException)
             {
                 throw new DuplicateEntityKeyException("duplicate key insertion not allowed", clone.Id);
-            }
-            
+            }            
             customer.Id = clone.Id;
 
             //get rid of checkpoint
@@ -102,7 +101,6 @@ namespace GroceryStore.Tests
             // cloning the object to separate it from the original object - thereby simulating a real-life data insertion
             var clone = (Order)order.CurrentCheckPoint;
             var keyToRemove = order.CheckPointHistory.Last().Key;
-
 
             if (order.Id == null)
             {

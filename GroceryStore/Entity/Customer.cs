@@ -1,7 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using GroceryStore.DataBroker;
 
-
 namespace GroceryStore.Entity
 {
     [DataContract]

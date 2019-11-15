@@ -84,16 +84,13 @@ namespace GroceryStore
             return product;
         }
 
-
         public void Save(EntityBase objectToSave)
         {
             if (objectToSave.IsDirty()) {
                 objectToSave.Save(_dataBroker);
                 objectToSave.CreateCheckPoint();
 
-            }
-            
+            }           
         }
-
     }
 }

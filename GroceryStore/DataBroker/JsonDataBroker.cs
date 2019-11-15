@@ -18,7 +18,7 @@ namespace GroceryStore.DataBroker
 
         private EntityJsonFileManager _fileManager;
 
-       public string FilePath { get; private set; }
+        public string FilePath { get; private set; }
 
         public JsonDataBroker(string filePath)
         {

@@ -17,7 +17,6 @@ namespace GroceryStore.Tests
             _rnd = new Random();
         }
 
-
         protected override void Edit()
         {
             _entity.CustomerId = _rnd.Next();
@@ -33,19 +32,15 @@ namespace GroceryStore.Tests
             return new Order { Id = 1, OrderDate = DateTime.Parse("1/1/2001"), CustomerId = 1 };
         }
 
-
         [TestMethod]
         public override void Changes()
         {
             _entity = new Order();
             var history = _entity.CheckPointHistory;
-
             const int initialCustomerId = 1;
             const int changedCustomerId = 2;
-
             _entity.CustomerId = initialCustomerId;
-            _entity.Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } };
-            
+            _entity.Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } };            
             _entity.CreateCheckPoint();
             var currentCheckPoint = (Order)_entity.CurrentCheckPoint;
             var items1 = _entity.Items.ToList();
@@ -71,7 +66,6 @@ namespace GroceryStore.Tests
 
             Assert.AreEqual(initialCustomerId, checkPoint1.CustomerId);
             Assert.AreEqual(changedCustomerId, checkPoint2.CustomerId);
-
             CollectionAssert.AreEqual(items1, checkPoint1.Items.ToArray());
             CollectionAssert.AreEqual(items2, checkPoint2.Items.ToArray());
         }
@@ -81,7 +75,6 @@ namespace GroceryStore.Tests
         {
             SetupDataBroker();
             _entity = new Order { CustomerId = 1, Items = new List<OrderItem> { new OrderItem { ProductId = 1, Quantity = 1 } } };
-
             _entity.Save(_dataBroker);
 
             Assert.IsTrue(_entity.Id != null);
@@ -97,14 +90,11 @@ namespace GroceryStore.Tests
             _entity.CreateCheckPoint();
             var clone = (Order)_entity.CurrentCheckPoint;
             _dataBroker.OrderData.Add(clone.Id.GetValueOrDefault(), clone);
-
             _entity.Items.Add(new OrderItem { ProductId = 2, Quantity = 2 });
             _entity.Save(_dataBroker);
 
             Assert.IsTrue(_entity.Id == orderId);
             Assert.IsTrue(_dataBroker.OrderData.Count == 1);
-
-
         }
     }
 }

@@ -7,7 +7,6 @@ namespace GroceryStore.DataBroker
 {
     public interface IDataBroker
     {
-
         IEnumerable<Customer> GetCustomers();
 
         Customer GetCustomer(int id);
